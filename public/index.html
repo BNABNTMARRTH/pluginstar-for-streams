@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamAI Co-Host — Liquid Glass</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- macOS Liquid Glass Window -->
+  <div class="macos-window">
+
+    <!-- Unified macOS Window Toolbar -->
+    <header class="macos-toolbar">
+      <div class="traffic-lights">
+        <div class="traffic-dot close" title="Cerrar">✕</div>
+        <div class="traffic-dot minimize" title="Minimizar">—</div>
+        <div class="traffic-dot zoom" title="Maximizar">⤢</div>
+      </div>
+
+      <div class="window-title-group">
+        <span>StreamAI Co-Host</span>
+        <span class="window-title-badge">Liquid Glass</span>
+      </div>
+
+      <div class="toolbar-actions">
+        <button class="apple-glass-btn sm" id="btnTestVoice">
+          <svg class="sf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          Probar Voz
+        </button>
+        <a href="/overlay" target="_blank" class="apple-glass-btn sm" id="btnOpenOverlay">
+          <svg class="sf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          OBS Overlay
+        </a>
+        <button class="apple-glass-btn sm primary" id="btnOpenSettings">
+          <svg class="sf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Ajustes
+        </button>
+      </div>
+    </header>
+
+    <!-- NavigationSplitView (Sidebar + Content + Inspector) -->
+    <div class="navigation-split-view">
+
+      <!-- 1. Sidebar (Canales & Control) -->
+      <aside class="split-sidebar">
+        <div class="sidebar-section-title">Canales en Vivo</div>
+
+        <!-- Conector TikTok -->
+        <div class="channel-glass-card">
+          <div class="channel-header">
+            <div class="channel-title">
+              <svg class="sf-icon" style="color: var(--platform-tiktok);" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .58.05.85.13V9.4a6.33 6.33 0 0 0-.85-.06A6.34 6.34 0 0 0 3 15.68a6.34 6.34 0 0 0 10.82 4.48c.34-.34.63-.72.87-1.12V9.61a8.28 8.28 0 0 0 4.9 1.6v-3.5a4.8 4.8 0 0 1-.0-.02z"/>
+              </svg>
+              TikTok Live
+            </div>
+            <div class="channel-badge-pill" id="ttStatusDot" title="Estado"></div>
+          </div>
+          <input type="text" id="ttUsernameInput" class="apple-text-field" placeholder="@usuario_tiktok" />
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; color: var(--label-tertiary);" id="ttStatusText">Desconectado</span>
+            <button class="apple-glass-btn sm primary" id="btnConnectTT">Conectar</button>
+          </div>
+        </div>
+
+        <!-- Conector YouTube -->
+        <div class="channel-glass-card">
+          <div class="channel-header">
+            <div class="channel-title">
+              <svg class="sf-icon" style="color: var(--platform-youtube);" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.58 7.19a2.76 2.76 0 0 0-1.95-1.96C17.9 4.75 12 4.75 12 4.75s-5.9 0-7.63.48A2.76 2.76 0 0 0 2.42 7.2 28.98 28.98 0 0 0 2 12c0 1.62.14 3.23.42 4.81.27.99 1.05 1.76 1.95 1.96 1.73.48 7.63.48 7.63.48s5.9 0 7.63-.48a2.76 2.76 0 0 0 1.95-1.96c.28-1.58.42-3.19.42-4.81 0-1.62-.14-3.23-.42-4.81zM9.75 15.02V8.98L15 12l-5.25 3.02z"/>
+              </svg>
+              YouTube Live
+            </div>
+            <div class="channel-badge-pill" id="ytStatusDot" title="Estado"></div>
+          </div>
+          <input type="text" id="ytUrlInput" class="apple-text-field" placeholder="URL o ID de video" />
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; color: var(--label-tertiary);" id="ytStatusText">Desconectado</span>
+            <button class="apple-glass-btn sm primary" id="btnConnectYT">Conectar</button>
+          </div>
+        </div>
+
+        <div class="sidebar-section-title" style="margin-top: 6px;">Simulador de Chat</div>
+
+        <!-- Simulador -->
+        <div class="channel-glass-card">
+          <div class="channel-header">
+            <div class="channel-title">
+              <svg class="sf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 2v7.31L4.62 19.38A2 2 0 0 0 6.38 22h11.24a2 2 0 0 0 1.76-2.62L14 9.31V2"/>
+                <line x1="8.5" y1="2" x2="15.5" y2="2"/>
+                <line x1="6" y1="16" x2="18" y2="16"/>
+              </svg>
+              Modo Pruebas
+            </div>
+            <div class="channel-badge-pill" id="simStatusDot" title="Estado simulador"></div>
+          </div>
+          <div style="font-size: 11.5px; color: var(--label-secondary); line-height: 1.35;">
+            Prueba de voz e IA con comentarios interactivos.
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="apple-glass-btn sm" id="btnSimulateOne" style="flex: 1;">+1 Mensaje</button>
+            <button class="apple-glass-btn sm primary" id="btnToggleSimLoop" style="flex: 1;">Flujo Continuo</button>
+          </div>
+        </div>
+
+        <div class="sidebar-section-title" style="margin-top: 6px;">Estadísticas de Sesión</div>
+
+        <div class="channel-glass-card" style="padding: 10px 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px;">
+            <span style="color: var(--label-secondary);">Mensajes Leídos:</span>
+            <strong id="statTotalMsgs" style="color: var(--apple-teal); font-family: 'JetBrains Mono', monospace;">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px;">
+            <span style="color: var(--label-secondary);">Respuestas IA:</span>
+            <strong id="statTotalReplies" style="color: var(--apple-purple); font-family: 'JetBrains Mono', monospace;">0</strong>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 2. Primary Content View (Feed en Vivo) -->
+      <main class="split-content">
+        <!-- Content Toolbar -->
+        <div class="content-toolbar">
+          <div class="search-pill-container">
+            <svg class="sf-icon" style="color: var(--label-tertiary); width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="txtSearchChat" class="search-pill-input" placeholder="Buscar en el chat..." />
+            <span class="search-shortcut-badge">⌘K</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <label style="font-size: 12px; color: var(--label-secondary); display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="checkbox" id="chkAutoScroll" checked />
+              Auto-Scroll
+            </label>
+            <button class="apple-glass-btn sm" id="btnClearFeed">Limpiar</button>
+          </div>
+        </div>
+
+        <!-- Canvas de Comentarios -->
+        <div class="chat-scroll-canvas" id="chatFeed">
+          <div style="text-align: center; color: var(--label-tertiary); padding: 60px 20px; font-size: 13.5px;" id="emptyFeedNotice">
+            Esperando comentarios en vivo... Conecta un canal o haz clic en <strong>"+1 Mensaje"</strong> para comenzar.
+          </div>
+        </div>
+      </main>
+
+      <!-- 3. Inspector View (Apple Intelligence & Copilot) -->
+      <aside class="split-inspector">
+        <div class="sidebar-section-title">Copiloto de IA</div>
+
+        <!-- Apple Intelligence Orb & Status -->
+        <div class="apple-intelligence-card" id="aiIntelligenceCard">
+          <div class="ai-orb-visual" id="aiOrbVisual">
+            <svg class="sf-icon" style="width: 20px; height: 20px; color: #fff;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/>
+              <path d="M19 17v4"/>
+              <path d="M3 5h4"/>
+              <path d="M17 19h4"/>
+            </svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 14.5px; font-weight: 700; color: #fff;" id="displayBotName">Aura</div>
+            <div style="font-size: 11.5px; color: var(--label-secondary);" id="aiStateLabel">Listo para responder</div>
+          </div>
+        </div>
+
+        <!-- Indicador de Descarga / Estado SmolLM2 -->
+        <div id="smolLMProgressContainer" class="channel-glass-card" style="display: none; padding: 10px 12px; border-color: rgba(191, 90, 242, 0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-bottom: 6px;">
+            <span style="color: var(--apple-purple); font-weight: 600;">SmolLM2 (~90MB Local)</span>
+            <span id="smolLMStatusText" style="color: var(--label-secondary);">0%</span>
+          </div>
+          <div style="width: 100%; height: 5px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+            <div id="smolLMProgressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--apple-blue), var(--apple-purple)); transition: width 0.2s ease;"></div>
+          </div>
+        </div>
+
+        <div class="sidebar-section-title" style="margin-top: 6px;">Automatización</div>
+
+        <!-- Auto-Pilot Toggle -->
+        <div class="channel-glass-card">
+          <div class="apple-toggle-wrapper">
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">Modo Auto-Pilot</div>
+              <div style="font-size: 11px; color: var(--label-tertiary);">Responde preguntas automáticamente</div>
+            </div>
+            <label class="apple-switch">
+              <input type="checkbox" id="chkAutoPilot">
+              <span class="apple-slider"></span>
+            </label>
+          </div>
+
+          <div class="apple-toggle-wrapper" style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+            <div>
+              <div style="font-size: 12px; font-weight: 600;">Responder a Todos</div>
+              <div style="font-size: 10.5px; color: var(--label-tertiary);">Incluye saludos y donaciones</div>
+            </div>
+            <label class="apple-switch">
+              <input type="checkbox" id="chkReplyAll" checked>
+              <span class="apple-slider"></span>
+            </label>
+          </div>
+
+          <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11.5px; color: var(--label-secondary); margin-bottom: 5px;">
+              <span>Enfriamiento (cooldown):</span>
+              <span id="cooldownLabel" style="font-weight: 600; color: var(--apple-blue);">15s</span>
+            </div>
+            <input type="range" id="rngCooldown" min="5" max="60" value="15" class="apple-range-input" />
+          </div>
+        </div>
+
+        <div class="sidebar-section-title" style="margin-top: 6px;">Voz & Audio</div>
+
+        <!-- Controles de Audio -->
+        <div class="channel-glass-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 12px; color: var(--label-secondary);">Volumen de Salida</span>
+            <button class="apple-glass-btn sm" id="btnMuteAudio">Silenciar</button>
+          </div>
+          <input type="range" id="rngVolume" min="0" max="1" step="0.1" value="1" class="apple-range-input" />
+        </div>
+
+        <div class="sidebar-section-title" style="margin-top: 6px;">Historial de Respuestas</div>
+
+        <!-- Lista de Respuestas Recientes -->
+        <div class="recent-replies-tray" id="replyHistory">
+          <div style="color: var(--label-quaternary); font-size: 12px; text-align: center; padding: 24px 0;">
+            Sin respuestas recientes
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Apple Sheet Modal (Ajustes de IA) -->
+  <div class="apple-sheet-backdrop" id="settingsModal">
+    <div class="apple-sheet-dialog">
+      <div class="sheet-header">
+        <h3 class="sheet-title">Ajustes del Copiloto IA</h3>
+        <button class="apple-glass-btn sm" id="btnCloseModal">✕</button>
+      </div>
+
+      <form id="settingsForm" onsubmit="event.preventDefault(); return false;" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="display: block; font-size: 12px; color: var(--label-secondary); margin-bottom: 6px;">Nombre del Copiloto</label>
+          <input type="text" id="cfgBotName" class="apple-text-field" value="Aura" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; color: var(--label-secondary); margin-bottom: 6px;">Idioma de la Voz</label>
+          <select id="cfgVoiceLang" class="apple-text-field">
+            <option value="es" selected>Español (Spanish)</option>
+            <option value="en">English (Inglés)</option>
+            <option value="ru">Русский (Ruso)</option>
+            <option value="zh">中文 (Chino Mandarín)</option>
+            <option value="all">Todos los idiomas disponibles</option>
+          </select>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="font-size: 12px; color: var(--label-secondary);">Voz del Sistema</label>
+            <button type="button" class="apple-glass-btn sm" id="btnPreviewVoice" style="padding: 2px 8px; font-size: 11px;">
+              <svg class="sf-icon" style="width: 11px; height: 11px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              Escuchar Muestra
+            </button>
+          </div>
+          <select id="cfgVoiceSelect" class="apple-text-field">
+            <!-- Poblado dinámicamente con JavaScript -->
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; color: var(--label-secondary); margin-bottom: 6px;">Proveedor de IA</label>
+          <select id="cfgProvider" class="apple-text-field">
+            <option value="local_qwen" selected>Qwen 2.5 0.5B Local (Neuronal en Backend - Metal GPU)</option>
+            <option value="fallback">Inteligente Co-Host (Instantáneo 0ms - Heurístico)</option>
+            <option value="gemini">Google Gemini (Gemini 1.5 Flash)</option>
+            <option value="openai">OpenAI (GPT-4o-mini)</option>
+            <option value="ollama">Ollama (Localhost:11434)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; color: var(--label-secondary); margin-bottom: 6px;">Clave de API (Opcional)</label>
+          <input type="password" id="cfgApiKey" class="apple-text-field" placeholder="Pega tu clave si usas Gemini u OpenAI" autocomplete="off" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; color: var(--label-secondary); margin-bottom: 6px;">Prompt de Personalidad</label>
+          <textarea id="cfgPrompt" class="apple-text-field" rows="3" style="resize: vertical;">Eres Aura, la copiloto divertida, amigable y carismática del stream. Responde de forma muy natural, ingeniosa y en máximo 1 o 2 oraciones en español coloquial. Saluda al autor si hace una pregunta.</textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="apple-glass-btn" id="btnCancelModal">Cancelar</button>
+          <button type="button" class="apple-glass-btn primary" id="btnSaveSettings">Guardar Cambios</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

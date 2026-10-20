@@ -1,0 +1,33 @@
+{
+  "name": "streamai-cohost",
+  "version": "1.0.0",
+  "description": "Multi-platform live chat monitor and AI Co-Host for TikTok Live, YouTube Live, and OBS Studio",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "tiktok-live",
+    "youtube-live",
+    "ai-vtuber",
+    "chat-reader",
+    "tts",
+    "obs-overlay"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@bestcodes/edge-tts": "^3.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "node-llama-cpp": "^3.22.2",
+    "socket.io": "^4.8.1",
+    "tiktok-live-connector": "^1.1.9"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.4"
+  }
+}
